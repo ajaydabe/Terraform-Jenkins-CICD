@@ -10,12 +10,12 @@ pipeline{
                 cleanWs()
             }
         }
-        stage('checkout from Git'){
+        stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/Aj7Ay/TERRAFORM-JENKINS-CICD.git'
+                git branch: 'main', url: 'https://github.com/ajaydabe/Terraform-Jenkins-CICD.git'
             }
         }
-        stage('Terraform version'){
+        stage('Terraform Version'){
              steps{
                  sh 'terraform --version'
                 }
@@ -28,19 +28,19 @@ pipeline{
                 }
             }
         }
-        stage("quality gate"){
+        stage("Quality Gate"){
            steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
                 }
             } 
         }
-        stage('TRIVY FS SCAN') {
+        stage('TRIVY FS Scan') {
             steps {
                 sh "trivy fs . > trivyfs.txt"
             }
         }
-        stage('Excutable permission to userdata'){
+        stage('Excutable Permission to Userdata'){
             steps{
                 sh 'chmod 777 website.sh'
             }
